@@ -1,0 +1,43 @@
+.calculatorContainer{
+    width: 500px;
+    height: 600px;
+    background-color: pink;
+    margin: auto;
+    margin-top: 75px;
+}
+.displayScreen{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.displayScreenBar{
+    width: 450px;
+    height: 60px;
+    background-color: gray;
+    margin-top: 30px;
+}
+
+.calculatorKeys{
+    height: 470px;
+    width: 500px;
+    background-color: aqua;
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.numberPad{
+    width: 380px;
+    height: 450px;
+    background-color: brown;
+    border: 1px solid black;
+    margin: 10px;
+}
+
+.operatorPad{
+    width: 120px;
+    height: 450px;
+    background-color: yellow;
+    border: 1px solid black;
+    margin: 10px;
+}
