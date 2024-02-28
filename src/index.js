@@ -7,6 +7,14 @@ buttons.forEach((button) => {
   button.addEventListener('click',displayButtonOnClick)
 });
 
+function displayButtonOnClick(e){
+    if(e.target.id!='equal'){
+    screen.innerText+=e.target.innerText;
+    }
+}
+
+
+//function for erasing display screen text
 const reset=document.getElementById('reset');
 reset.addEventListener('click',erase);
 
@@ -14,6 +22,12 @@ function erase(){
     screen.innerText='';
 }
 
-function displayButtonOnClick(e){
-    screen.innerText+=e.target.innerText;
+const equal=document.getElementById('equal');
+equal.addEventListener('click',add);
+//functions for operation
+function add(){
+    console.log(screen.innerText);
 }
+
+
+
