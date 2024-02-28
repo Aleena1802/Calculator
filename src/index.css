@@ -17,6 +17,11 @@
     height: 80px;
     background-color: #D4D4D2;
     margin-top: 25px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
 }
 
 .calculatorKeys{
