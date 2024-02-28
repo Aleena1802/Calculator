@@ -62,6 +62,9 @@ button:hover{
 background-color: #D4D4D2;
 color: #505050;
 }
+
+
+
 .numberPadRow1, .numberPadRow2, .numberPadRow3, .numberPadRow4 {
     display: flex;
     justify-content: center;  
