@@ -10,9 +10,6 @@ const screen = document.querySelector(".displayScreenBar");
 
 
 //function for erasing display screen text
-//function for erasing display screen text
-const reset = document.getElementById("reset");
-reset.addEventListener("click", erase);
 
 function erase() {
   firstNum='';
@@ -20,6 +17,15 @@ function erase() {
   change=false;
 }
 
+//function for deleting a digit
+function backspace(){
+let screenDisplay=screen.innerText;
+    let array=screenDisplay.split('');
+    array.splice(array.length-1,1);
+    console.log("in delete: "+array);
+    screen.innerText=array.join('');
+    firstNum=screen.innerText;
+}
 
 //function for displaying ever button clicked
 const buttons = document.querySelectorAll("button");
@@ -39,6 +45,10 @@ function displayButtonOnClick(e) {
   }
   else if(e.target.id=='reset'){
     erase();
+  }
+  else if(e.target.id=='delete'){
+    backspace();
+
   }
   else if (!(e.target.id == "plus"||e.target.id == "minus"||e.target.id == "multiply"||e.target.id == "divide")) {
     if(change){
