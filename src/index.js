@@ -4,10 +4,19 @@ let operator = "+";
 let secondNum = '';
 let change=false;
 let secondVariable='';
-
-
-const buttons = document.querySelectorAll("button");
 const screen = document.querySelector(".displayScreenBar");
+
+//function for erasing display screen text
+const reset = document.getElementById("reset");
+reset.addEventListener("click", erase);
+
+function erase() {
+  screen.innerText = "";
+}
+
+
+//function for displaying ever button clicked
+const buttons = document.querySelectorAll("button");
 
 //use forEach to iterate over NodeList
 buttons.forEach((button) => {
@@ -71,3 +80,4 @@ function multiply(num1, num2) {
 function divide(num1, num2) {
   return num1 / num2;
 }
+
