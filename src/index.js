@@ -4,14 +4,20 @@ let operator = "+";
 let secondNum = '';
 let change=false;
 let secondVariable='';
+let sum='';
+
 const screen = document.querySelector(".displayScreenBar");
 
+
+//function for erasing display screen text
 //function for erasing display screen text
 const reset = document.getElementById("reset");
 reset.addEventListener("click", erase);
 
 function erase() {
+  firstNum='';
   screen.innerText = "";
+  change=false;
 }
 
 
@@ -30,12 +36,17 @@ function displayButtonOnClick(e) {
     screen.innerText=operate(firstNum,operator,secondNum);
     firstNum=screen.innerText;
     secondNum='';
-  }else if (!(e.target.id == "plus"||e.target.id == "minus"||e.target.id == "multiply"||e.target.id == "divide")) {
+  }
+  else if(e.target.id=='reset'){
+    erase();
+  }
+  else if (!(e.target.id == "plus"||e.target.id == "minus"||e.target.id == "multiply"||e.target.id == "divide")) {
     if(change){
       secondNum+=e.target.innerText;
       screen.innerText=secondNum;
     }
     else{
+    console.log("screen text after C: "+screen.innerText);
     firstNum += e.target.innerText;
     screen.innerText=firstNum;
     }
