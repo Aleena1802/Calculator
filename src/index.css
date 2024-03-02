@@ -1,5 +1,5 @@
 .calculatorContainer{
-    width: 450px;
+    width: 400px;
     height: 600px;
     margin: auto;
     margin-top: 75px;
@@ -15,7 +15,7 @@
     align-items: center;
 }
 .displayScreenBar{
-    width: 400px;
+    width: 350px;
     height: 80px;
     background-color: #D4D4D2;
     margin-top: 25px;
@@ -29,20 +29,21 @@
 
 .calculatorKeys{
     height: 450px;
-    width: 500px;
+    width: 450px;
     margin-top: 40px;
     display: flex;
 }
 
 .numberPad{
-    width: 330px;
+    width: 280px;
     height: 450px;
     margin: 10px;
     margin-bottom: 20px;
+
 }
 
 .operatorPad{
-    width: 70px;
+    width: 40px;
     height: 450px;
     display: flex;
     flex-direction: column;
@@ -83,5 +84,4 @@ color: #505050;
 .operatorPadRow1, .numberPadRow1, .numberPadRow2, .numberPadRow3, .numberPadRow4 {
     display: flex;
     justify-content: center;  
-    gap: 20px;
 }
