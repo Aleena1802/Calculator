@@ -31,11 +31,18 @@ buttons.forEach((button) => {
 
 function displayButtonOnClick(e) {
   if (e.target.id == "equal") {
-    console.log(firstNum + " " + operator + " " + secondNum);
-    console.log(operate(firstNum, operator, secondNum));
-    screen.innerText = operate(firstNum, operator, secondNum);
-    firstNum = screen.innerText;
-    secondNum = "";
+    console.log("equal button clicked: "+ typeof(screen.innerText));
+    console.log(typeof(firstNum));
+    if ((!(typeof(firstNum)==NaN||firstNum=="") && !(typeof(secondNum)==NaN||secondNum==""))) {
+      console.log("inside NaN");
+      console.log(firstNum + " " + operator + " " + secondNum);
+      console.log(operate(firstNum, operator, secondNum));
+      screen.innerText = operate(firstNum, operator, secondNum);
+      firstNum = screen.innerText;
+      secondNum = "";
+    } else {
+      screen.innerText = "";
+    }
   } else if (e.target.id == "reset") {
     erase();
   } else if (e.target.id == "delete") {
