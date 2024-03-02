@@ -1,9 +1,10 @@
 let firstNum = "";
 let firstNumDisplay = "";
-let operator = "+";
+let operator = "";
 let secondNum = "";
 let change = false;
 let count = 0;
+let sum=0;
 const topScreen = document.querySelector(".displayOperation");
 const bottomScreen=document.querySelector('.displaySum');
 
@@ -46,7 +47,6 @@ function displayButtonOnClick(e) {
       !(typeof firstNum == NaN || firstNum == "") &&
       !(typeof secondNum == NaN || secondNum == "")
     ) {
-      console.log(firstNum);
       bottomScreen.innerText = operate(firstNum, operator, secondNum);
       firstNum = bottomScreen.innerText;
       secondNum = "";
@@ -66,7 +66,7 @@ function displayButtonOnClick(e) {
       e.target.id == "divide"
     )
   ) {
-    if (firstNum!='') {
+    if (change) {
       secondNum += e.target.innerText;
       bottomScreen.innerText = secondNum;
       topScreen.innerText+=e.target.innerText;
@@ -75,12 +75,22 @@ function displayButtonOnClick(e) {
       bottomScreen.innerText = firstNum;
       topScreen.innerText=firstNum;
     }
-  } else {
+  } else { //if operator is chosen
+    if(operator!=''&& secondNum!=''){
+    sum=operate(firstNum,operator,secondNum);
+    bottomScreen.innerText;
+    topScreen.innerText+=e.target.innerText;
+    secondNum='';
+    firstNum=sum;
+    //console.log(firstNum);
+    operator=e.target.innerText;
+  }
+    else{
     operator = e.target.innerText;
     bottomScreen.innerText = operator;
     topScreen.innerText+=operator;
-    secondNum='';
     change=true;
+    }
   }
 }
 
