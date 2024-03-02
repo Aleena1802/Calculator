@@ -1,24 +1,35 @@
 let firstNum = "";
+let firstNumDisplay = "";
 let operator = "+";
 let secondNum = "";
 let change = false;
-const screen = document.querySelector(".displayScreenBar");
+let count = 0;
+const topScreen = document.querySelector(".displayOperation");
+const bottomScreen=document.querySelector('.displaySum');
 
 //function for erasing display screen text
 function erase() {
   firstNum = "";
-  screen.innerText = "";
+  topScreen.innerText = "";
+  bottomScreen.innerText="";
   change = false;
 }
 
 //function for deleting a digit
 function backspace() {
-  let screenDisplay = screen.innerText;
-  let array = screenDisplay.split("");
-  array.splice(array.length - 1, 1);
-  console.log("in delete: " + array);
-  screen.innerText = array.join("");
-  firstNum = screen.innerText;
+  let screenDisplayBottom = bottomScreen.innerText;
+  let screenDisplayTop= topScreen.innerText;
+
+  let arrayBottom = screenDisplayBottom.split("");
+  let arrayTop = screenDisplayTop.split("");
+
+  arrayBottom.splice(arrayBottom.length - 1, 1);
+  arrayTop.splice(arrayTop.length - 1, 1);
+
+  bottomScreen.innerText = arrayBottom.join("");
+  topScreen.innerText=arrayTop.join("");
+  firstNum = bottomScreen.innerText;
+  console.log(firstNum);
 }
 
 //function for displaying every button clicked
@@ -31,17 +42,17 @@ buttons.forEach((button) => {
 
 function displayButtonOnClick(e) {
   if (e.target.id == "equal") {
-    console.log("equal button clicked: "+ typeof(screen.innerText));
-    console.log(typeof(firstNum));
-    if ((!(typeof(firstNum)==NaN||firstNum=="") && !(typeof(secondNum)==NaN||secondNum==""))) {
-      console.log("inside NaN");
-      console.log(firstNum + " " + operator + " " + secondNum);
-      console.log(operate(firstNum, operator, secondNum));
-      screen.innerText = operate(firstNum, operator, secondNum);
-      firstNum = screen.innerText;
+    if (
+      !(typeof firstNum == NaN || firstNum == "") &&
+      !(typeof secondNum == NaN || secondNum == "")
+    ) {
+      console.log(firstNum);
+      bottomScreen.innerText = operate(firstNum, operator, secondNum);
+      firstNum = bottomScreen.innerText;
       secondNum = "";
+      topScreen.innerHTML=firstNum;
     } else {
-      screen.innerText = "";
+      bottomScreen.innerText = "";
     }
   } else if (e.target.id == "reset") {
     erase();
@@ -55,18 +66,21 @@ function displayButtonOnClick(e) {
       e.target.id == "divide"
     )
   ) {
-    if (change) {
+    if (firstNum!='') {
       secondNum += e.target.innerText;
-      screen.innerText = secondNum;
+      bottomScreen.innerText = secondNum;
+      topScreen.innerText+=e.target.innerText;
     } else {
-      console.log("screen text after C: " + screen.innerText);
       firstNum += e.target.innerText;
-      screen.innerText = firstNum;
+      bottomScreen.innerText = firstNum;
+      topScreen.innerText=firstNum;
     }
   } else {
-    change = true;
     operator = e.target.innerText;
-    screen.innerText = operator;
+    bottomScreen.innerText = operator;
+    topScreen.innerText+=operator;
+    secondNum='';
+    change=true;
   }
 }
 
