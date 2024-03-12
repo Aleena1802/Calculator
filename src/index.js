@@ -1,125 +1,161 @@
-let firstNum = "";
-let firstNumDisplay = "";
-let operator = "";
-let secondNum = "";
-let change = false;
-let count = 0;
-let sum=0;
-const topScreen = document.querySelector(".displayOperation");
-const bottomScreen=document.querySelector('.displaySum');
-
-//function for erasing display screen text
-function erase() {
-  firstNum = "";
-  topScreen.innerText = "";
-  bottomScreen.innerText="";
-  change = false;
-}
-
-//function for deleting a digit
-function backspace() {
-  let screenDisplayBottom = bottomScreen.innerText;
-  let screenDisplayTop= topScreen.innerText;
-
-  let arrayBottom = screenDisplayBottom.split("");
-  let arrayTop = screenDisplayTop.split("");
-
-  arrayBottom.splice(arrayBottom.length - 1, 1);
-  arrayTop.splice(arrayTop.length - 1, 1);
-
-  bottomScreen.innerText = arrayBottom.join("");
-  topScreen.innerText=arrayTop.join("");
-  firstNum = bottomScreen.innerText;
-  console.log(firstNum);
-}
-
-//function for displaying every button clicked
-const buttons = document.querySelectorAll("button");
-
-//use forEach to iterate over NodeList
-buttons.forEach((button) => {
-  button.addEventListener("click", displayButtonOnClick);
-});
-
-function displayButtonOnClick(e) {
-  if (e.target.id == "equal") {
-    if (
-      !(typeof firstNum == NaN || firstNum == "") &&
-      !(typeof secondNum == NaN || secondNum == "")
-    ) {
-      bottomScreen.innerText = operate(firstNum, operator, secondNum);
-      firstNum = bottomScreen.innerText;
-      secondNum = "";
-      topScreen.innerHTML=firstNum;
-    } else {
-      bottomScreen.innerText = "";
-    }
-  } else if (e.target.id == "reset") {
-    erase();
-  } else if (e.target.id == "delete") {
-    backspace();
-  } else if (
-    !(
-      e.target.id == "plus" ||
-      e.target.id == "minus" ||
-      e.target.id == "multiply" ||
-      e.target.id == "divide"
-    )
-  ) {
-    if (change) {
-      secondNum += e.target.innerText;
-      bottomScreen.innerText = secondNum;
-      topScreen.innerText+=e.target.innerText;
-    } else {
-      firstNum += e.target.innerText;
-      bottomScreen.innerText = firstNum;
-      topScreen.innerText=firstNum;
-    }
-  } else { //if operator is chosen
-    if(operator!=''&& secondNum!=''){
-    sum=operate(firstNum,operator,secondNum);
-    bottomScreen.innerText;
-    topScreen.innerText+=e.target.innerText;
-    secondNum='';
-    firstNum=sum;
-    //console.log(firstNum);
-    operator=e.target.innerText;
-  }
-    else{
-    operator = e.target.innerText;
-    bottomScreen.innerText = operator;
-    topScreen.innerText+=operator;
-    change=true;
-    }
-  }
-}
-
-function operate(firstNum, operator, secondNum) {
-  firstNum = parseInt(firstNum);
-  secondNum = parseInt(secondNum);
-  if (operator == "+") {
-    return add(firstNum, secondNum);
-  } else if (operator == "-") {
-    return subtract(firstNum, secondNum);
-  } else if (operator == "x") {
-    return multiply(firstNum, secondNum);
-  } else if (operator == "÷") {
-    return divide(firstNum, secondNum);
-  }
-}
-
 function add(num1, num2) {
   return num1 + num2;
 }
+
+
 
 function subtract(num1, num2) {
   return num1 - num2;
 }
 
+
+
 function multiply(num1, num2) {
   return num1 * num2;
 }
 
+
+
 function divide(num1, num2) {
-  return num1 / num2;
+  if (num2 == 0) {
+    return "error";
+  } else {
+    return num1 / num2;
+  }
+}
+
+
+
+
+
+let firstVariable = "";
+let operator = "";
+let secondVariable = "";
+let sum;
+let changeToSecondVariable=false;
+const topScreen = document.querySelector(".displayOperation");
+const bottomScreen=document.querySelector('.displaySum');
+
+
+
+
+
+function operate(num1, operator, num2) {
+  num1 = parseInt(num1);
+  num2 = parseInt(num2);
+  if (operator == "+") {
+   return add(num1, num2);
+  } else if (operator == "-") {
+    return subtract(num1, num2);
+  } else if (operator == "x") {
+    return multiply(num1, num2);
+  } else if(operator=='÷') {
+    return divide(num1, num2);
+  }
+}
+
+
+
+
+
+let buttons = document.querySelectorAll("button");
+buttons.forEach((button) => {
+  button.addEventListener("click", populateScreen);
+});
+
+function displayButton(e) {
+  if (!(e.target.id == "reset" || e.target.id == "delete")) {
+    return e.target.innerText;
+  }
+}
+
+
+
+let previousOperator='';
+
+function populateScreen(e) {
+  //let screen = document.querySelector(".displayOperation");
+  if (e.target.id == "reset") {
+    reset();
+  }
+  else if(e.target.id=='equal'){
+    sum=operate(firstVariable,operator,secondVariable);
+    //console.log(firstVariable + "  " + operator+" "+secondVariable);
+    //console.log("sum: " +sum);
+    bottomScreen.innerText = sum; 
+  }
+  else if(e.target.id=='delete'){
+    backspace();
+  }
+  else {
+   
+    const currentButton = displayButton(e);
+  const lastChar = topScreen.innerText.slice(-1); // Get the last character of topScreen
+
+  // Check for double operator input
+  if ((currentButton === "+" || currentButton === "-" || currentButton === "x" || currentButton === "÷") &&
+      (lastChar === "+" || lastChar === "-" || lastChar === "x" || lastChar === "÷")) {
+    return; 
+  }
+
+    // Prevent input of two operators side by side
+  if(!(lastChar.match(/^[^\d]+$/) && currentButton.match(/^[^\d]+$/))){
+    topScreen.innerText += currentButton;
+    calculation(e);
+  }
+  previousOperator = currentButton; 
+
+
+  
+  }
+}
+
+function backspace(){
+  let screenDisplayTop= topScreen.innerText;
+  let arrayTop = screenDisplayTop.split("");
+  arrayTop.splice(arrayTop.length - 1, 1);
+  topScreen.innerText=arrayTop.join("");
+}
+
+
+
+
+function calculation(e) {
+
+  if (!(e.target.id == "plus" || e.target.id == "minus" || e.target.id == "multiply" || e.target.id == "divide")){
+    if (changeToSecondVariable) {
+      secondVariable += e.target.innerText;
+    }
+    else{
+      firstVariable += e.target.innerText;
+    }
+  }
+  
+  else {
+    if(operator!=''&& secondVariable!=''){
+      console.log(firstVariable + "  " + secondVariable);
+      sum=operate(firstVariable,operator,secondVariable);
+      firstVariable = sum;
+      secondVariable = '';     
+      operator=e.target.innerText;
+      }
+    else{
+    operator = e.target.innerText;
+    changeToSecondVariable=true;
+    }
+  }
+
+  
+}
+
+
+function reset(){
+  let screen = document.querySelector(".displayOperation");
+  screen.innerText=null;
+  firstVariable='';
+  secondVariable='';
+  operator='';
+  topScreen.innerText = "";
+  bottomScreen.innerText="";
+  changeToSecondVariable=false;
 }
